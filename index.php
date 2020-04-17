@@ -1,11 +1,9 @@
 <?php
 include "./class/dni.php";
 include "./class/primo.php";
-session_start();
-if (!isset($_SESSION["arrayPrimos"])){
-    $_SESSION["arrayPrimos"]=array();
-}
+
 $cincoPrimos = array();
+$contador=0;
 
 if (isset($_POST["enviar"])){
     if (isset($_POST["dni"]) && ($_POST["dni"] != "")){   
@@ -34,16 +32,18 @@ function esPrimo($numero){
     }
 }
 
-function almacenaPrimos(){
-    
-    do {
-        for ($i=0; $i < 10; $i++) { 
+
+
+    for ($i=2; $i < 20; $i++) { 
         if (esPrimo($i)) {
-            array_push($cincoPrimos, $i);
+            if ($contador < 5) {
+                array_push($cincoPrimos, $i);
+            }
+        $contador++;
         }
     }
-    } while ( count($cincoPrimos) < 6);
-}
+
+
 
 ?>
 
@@ -90,14 +90,14 @@ function almacenaPrimos(){
 <fieldset>
     <h2>5 primeros primos</h2>
     <?php
-      foreach ($_SESSION["arrayPrimos"] as $clave => $valor) {
+      foreach ($cincoPrimos as $valor) {
         echo $valor;  
         echo "<br>";
     }       
 ?>
-<a href="cierraSesiones.php">Reiniciar Primos</a>
+
 </fieldset>
-<a href="">Enlace a GitHub para ver el código</a>
+<a href="https://github.com/RafaelUrbanoEstepa/Ejercicios-b-sicos-PHP">Enlace a GitHub para ver el código</a>
 </body>
 </html>
 
